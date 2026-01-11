@@ -1,0 +1,5 @@
+{
+  "name": "lucky draw",
+  "description": "A professional tool for HRs to manage employee lists, perform lucky draws with animations, and organize team groupings with CSV export support.",
+  "requestFramePermissions": []
+}
