@@ -4,6 +4,7 @@ on:
   push:
     branches: ["main"]
 
+# 必須設定權限，否則部署會失敗
 permissions:
   contents: read
   pages: write
@@ -31,7 +32,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist' # Vite 打包後的輸出路徑
+          path: './dist' # Vite 打包後的資料夾
 
       - name: Deploy to GitHub Pages
         id: deployment
