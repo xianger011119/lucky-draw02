@@ -1,8 +1,8 @@
-name: Deploy to Pages
+name: Deploy Vite Proejct to Pages
 
 on:
   push:
-    branches: ["main"] # 當你推送到 main 分支時觸發
+    branches: ["main"]
 
 permissions:
   contents: read
@@ -10,22 +10,28 @@ permissions:
   id-token: write
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps: deployment.outputs.page_url }}
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.' # 確保 index.html 檔案是在根目錄
+          path: './dist' # Vite 打包後的資料夾名稱
 
       - name: Deploy to GitHub Pages
         id: deployment
