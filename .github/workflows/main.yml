@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          # 移除了快取設定，避免找不到 package-lock.json 的錯誤
 
       - name: Install dependencies
         run: npm install
@@ -31,7 +31,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './dist' # Vite 打包後的預設資料夾名稱
+          path: './dist'
 
       - name: Deploy to GitHub Pages
         id: deployment
