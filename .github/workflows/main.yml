@@ -1,22 +1,30 @@
-name: Node.js CI
+name: Deploy to GitHub Pages
 
-# 定義什麼時候觸發這個工作流（例如推送到 main 分支時）
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
+
+# 必須加入權限設定，才能讓 Actions 有權發佈網頁
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
-
     steps:
-      # 1. 必須先檢出程式碼
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      # 2. 這是你原本圖片中的內容，現在放在 steps 之下
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v4  # 建議改用 v4，較穩定
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          node-version: '20' # 指定你需要的 Node 版本
+          path: '.' # 如果你的 index.html 在根目錄，就用 '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
