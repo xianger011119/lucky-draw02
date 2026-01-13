@@ -5,7 +5,7 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
   return {
-    base: '/lucky-draw02/', // <--- 請務必加入這一行，這對應你的倉庫名稱
+    base: '/lucky-draw02/', // 務必確保與 GitHub 倉庫名稱一致
     server: {
       port: 3000,
       host: '0.0.0.0',
