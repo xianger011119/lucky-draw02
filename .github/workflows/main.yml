@@ -1,10 +1,9 @@
-name: Deploy to GitHub Pages
+name: Deploy to Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main"] # 當你推送到 main 分支時觸發
 
-# 必須加入權限設定，才能讓 Actions 有權發佈網頁
 permissions:
   contents: read
   pages: write
@@ -12,6 +11,9 @@ permissions:
 
 jobs:
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps: deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -23,7 +25,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.' # 如果你的 index.html 在根目錄，就用 '.'
+          path: '.' # 確保 index.html 檔案是在根目錄
 
       - name: Deploy to GitHub Pages
         id: deployment
